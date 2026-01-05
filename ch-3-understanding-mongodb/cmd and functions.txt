@@ -1,0 +1,10 @@
+mongosh - start mongogo shell in terminal
+show db - list database
+use "db_name" - to select database
+-----------------------------------
+functions
+insertOne({}) || insertMany([{}, {}, {}, {}])
+find({}, {}) || findOne({query}, {title: 1})
+limit()
+
+
