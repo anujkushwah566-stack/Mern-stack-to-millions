@@ -1,0 +1,15 @@
+// Products prompt
+generate product.json with createdAt must follow mongodb date pattern in createdAt give me atleast 20 products and do not ad duplicate createdAt
+
+1. show collections
+
+functions
+---------------------
+insertOne() || insertMany()
+find() || findOne()
+limit()
+sort()
+skip()
+countDocuments({query})
+updateOne({}, {$set: {}}) || updateMany()
+deleteOne() || deleteMany()
