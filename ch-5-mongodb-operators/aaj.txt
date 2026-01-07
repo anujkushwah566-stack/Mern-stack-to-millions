@@ -1,0 +1,17 @@
+// Prompt
+generate payment.json must add createdAt in mongodb give me atleast 20 record
+
+comparision
+-----------------------
+$eq
+$ne
+$gt
+$gte
+$lt
+$lte
+
+price: {}
+
+rough
+
+data cleaning
