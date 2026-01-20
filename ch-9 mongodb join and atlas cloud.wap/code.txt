@@ -1,0 +1,10 @@
+db.payments.aggregate([
+    {
+        $lookup: {
+            from : 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'user'
+        }
+    }
+])
