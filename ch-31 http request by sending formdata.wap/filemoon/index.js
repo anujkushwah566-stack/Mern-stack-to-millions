@@ -1,0 +1,50 @@
+const dotenv = require("dotenv")
+dotenv.config()
+
+const mongoose = require("mongoose")
+mongoose.connect(process.env.DB)
+
+const express = require("express")
+const {v4: uniqueId} = require("uuid")
+const cors = require('cors')
+
+
+const multer  = require("multer") // for file uplaoding
+const storage = multer.diskStorage({
+    destination : (req , file , next)=>{
+         next(null , "files/")
+    },
+    filename : (req , file , next)=>{
+      const nameArr = file.originalname.split(".")
+      const ext = nameArr.pop()
+      const name = `${uniqueId()}.${ext}`
+      next(null , name)
+    }
+})
+const upload = multer({storage: storage})
+
+const { signup, login } = require("./controller/user.controller")
+const { createFile, fetchFiles, deletefile, downlodeFile } = require("./controller/file.controller")
+const { fetchDashboard } = require("./controller/dashboard.controller")
+const { verifyToken } = require("./controller/token.controller")
+const app = express()
+
+
+app.listen(process.env.PORT || 8080)
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+app.use(express.static("view"))
+app.use(cors({
+  origin: 'http://127.0.0.1:5500'// domain name
+}))// alow kar diya ki user interface ees port par chal raha he to api access kar sakta he
+
+
+         // endpoint
+app.post("/signup" , signup)
+app.post("/login" , login)
+app.post("/file" ,upload.single("file") ,  createFile)
+app.get("/file" , fetchFiles)
+app.delete('/file/:id' , deletefile)
+app.get("/file/downlode/:id" , downlodeFile)
+app.get('/dashboard' , fetchDashboard)
+app.post("/token/verify" , verifyToken)
